@@ -38,10 +38,20 @@ namespace DotNetSolutionsMerger
                 { SolutionProjectType.WebProject, WebProjectGuid },
                 { SolutionProjectType.SharedProject, SharedProjectGuid }
             };
-
-        private void Log(string message)
+        
+        
+        /// <summary>
+        ///  Merges multiple solutions into a single solution file.
+        /// </summary>
+        /// <param name="inputDirectory"> The directory containing the solutions to merge. </param>
+        /// <param name="outputSolutionPath"> The path to the merged solution file. </param>
+        public static void MergeSolutions(string inputDirectory, string outputSolutionPath)
         {
-            Console.WriteLine($"[SolutionMerger] {message}");
+            if (inputDirectory == null) throw new ArgumentNullException(nameof(inputDirectory));
+            if (outputSolutionPath == null) throw new ArgumentNullException(nameof(outputSolutionPath));
+            IEnumerable<string> solutionPaths = Directory.GetFiles(inputDirectory, "*.sln", SearchOption.AllDirectories);
+            SolutionMerger merger = new SolutionMerger(solutionPaths, outputSolutionPath);
+            merger.MergeSolutions();
         }
 
         public SolutionMerger(IEnumerable<string> solutionPaths, string outputPath)
@@ -55,6 +65,11 @@ namespace DotNetSolutionsMerger
             _solutionFolders = new Dictionary<string, ProjectInSolution>();
             _nestedProjects = new Dictionary<string, List<string>>();
             _usedProjectGuids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        private void Log(string message)
+        {
+            Console.WriteLine($"[SolutionMerger] {message}");
         }
 
         public void MergeSolutions()
