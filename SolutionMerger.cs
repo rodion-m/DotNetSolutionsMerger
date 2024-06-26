@@ -39,6 +39,11 @@ namespace DotNetSolutionsMerger
                 { SolutionProjectType.SharedProject, SharedProjectGuid }
             };
 
+        private void Log(string message)
+        {
+            Console.WriteLine($"[SolutionMerger] {message}");
+        }
+
         public SolutionMerger(IEnumerable<string> solutionPaths, string outputPath)
         {
             ArgumentNullException.ThrowIfNull(solutionPaths);
@@ -54,16 +59,20 @@ namespace DotNetSolutionsMerger
 
         public void MergeSolutions()
         {
+            Log("Starting to merge solutions.");
             foreach (string solutionPath in _solutionPaths)
             {
                 MergeSolution(solutionPath);
             }
 
+            Log("Writing merged solution.");
             WriteMergedSolution();
+            Log("Finished merging solutions.");
         }
 
         private void MergeSolution(string solutionPath)
         {
+            Log($"Merging solution: {solutionPath}");
             SolutionFile solutionFile = SolutionFile.Parse(solutionPath);
             string solutionDirectory = Path.GetDirectoryName(solutionPath);
             string solutionName = Path.GetFileNameWithoutExtension(solutionPath);
@@ -85,6 +94,7 @@ namespace DotNetSolutionsMerger
                 if (File.Exists(absolutePath))
                 {
                     // Check if a project with the same relative path already exists
+                    Log($"Adding new project: {relativePath}");
                     ProjectInSolution existingProject = _mergedProjects.FirstOrDefault(p =>
                         p.RelativePath.Equals(relativePath, StringComparison.OrdinalIgnoreCase));
 
@@ -108,12 +118,13 @@ namespace DotNetSolutionsMerger
                     else
                     {
                         // Update existing project if necessary
+                        Log($"Updating existing project: {relativePath}");
                         UpdateExistingProject(existingProject, project);
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"Warning: Project file '{absolutePath}' not found. Skipping this project.");
+                    Log($"Warning: Project file '{absolutePath}' not found. Skipping this project.");
                 }
             }
 
@@ -213,6 +224,7 @@ namespace DotNetSolutionsMerger
 
             if (constructorInfo is null)
             {
+                Log("Failed to find constructor for ProjectInSolution.");
                 throw new InvalidOperationException(
                     "Failed to find constructor for ProjectInSolution. Ensure that MSBuild version is 17.10.4.");
             }
@@ -356,6 +368,7 @@ namespace DotNetSolutionsMerger
             
             if (propertyInfo is null)
             {
+                Log("Failed to find property 'RelativePath' in ProjectInSolution.");
                 throw new InvalidOperationException("Failed to find property 'RelativePath' in ProjectInSolution.");
             }
             
