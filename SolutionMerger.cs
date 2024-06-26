@@ -38,8 +38,8 @@ namespace DotNetSolutionsMerger
                 { SolutionProjectType.WebProject, WebProjectGuid },
                 { SolutionProjectType.SharedProject, SharedProjectGuid }
             };
-        
-        
+
+
         /// <summary>
         ///  Merges multiple solutions into a single solution file.
         /// </summary>
@@ -50,6 +50,14 @@ namespace DotNetSolutionsMerger
             if (inputDirectory == null) throw new ArgumentNullException(nameof(inputDirectory));
             if (outputSolutionPath == null) throw new ArgumentNullException(nameof(outputSolutionPath));
             IEnumerable<string> solutionPaths = Directory.GetFiles(inputDirectory, "*.sln", SearchOption.AllDirectories);
+            SolutionMerger merger = new SolutionMerger(solutionPaths, outputSolutionPath);
+            merger.MergeSolutions();
+        }
+
+        public static void MergeSolutions(string[] solutionPaths, string outputSolutionPath)
+        {
+            if (solutionPaths == null) throw new ArgumentNullException(nameof(solutionPaths));
+            if (outputSolutionPath == null) throw new ArgumentNullException(nameof(outputSolutionPath));
             SolutionMerger merger = new SolutionMerger(solutionPaths, outputSolutionPath);
             merger.MergeSolutions();
         }
