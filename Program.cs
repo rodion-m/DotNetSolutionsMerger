@@ -1,3 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using DotNetSolutionsMerger;
 
-Console.WriteLine("Hello, World!");
+// TODO console interface
