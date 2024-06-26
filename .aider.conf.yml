@@ -1,5 +1,5 @@
 ## Specify command to run tests
-test-cmd: "dotnet format && dotnet build"
+test-cmd: "dotnet format DotNetSolutionsMerger.sln && dotnet build DotNetSolutionsMerger.sln"
 
 ## Enable/disable automatic testing after changes (default: False)
 auto-test: true

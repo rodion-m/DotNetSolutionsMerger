@@ -365,13 +365,13 @@ namespace DotNetSolutionsMerger
         {
             PropertyInfo? propertyInfo =
                 typeof(ProjectInSolution).GetProperty(nameof(ProjectInSolution.RelativePath), BindingFlags.Public | BindingFlags.Instance);
-            
+
             if (propertyInfo is null)
             {
                 Log("Failed to find property 'RelativePath' in ProjectInSolution.");
                 throw new InvalidOperationException("Failed to find property 'RelativePath' in ProjectInSolution.");
             }
-            
+
             propertyInfo.SetValue(project, relativePath);
         }
     }

@@ -481,3 +481,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+.aider*
