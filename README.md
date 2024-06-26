@@ -1,6 +1,8 @@
 ## Overview
 This tool merges multiple .NET solution files into a single solution file. It is designed to be run from the command line and accepts various input options for flexibility.
 
+_The source code is almost entirely written by Claude Sonnet 3.5._
+
 ## Installation
 Ensure you have .NET SDK installed. Clone or download the repository containing this tool, then build it using the .NET CLI.
 
