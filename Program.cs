@@ -5,7 +5,7 @@ class Program
 {
     static async Task<int> Main(string[] args)
     {
-        var rootCommand = new RootCommand("Merge multiple .NET solution files into a single solution.");
+        var rootCommand = new RootCommand("Merge multiple .NET solution files into a single solution");
 
         var inputOption = new Option<string[]>(
             aliases: new[] { "--input", "-i" },
