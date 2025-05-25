@@ -40,4 +40,4 @@ To merge all solution files located in a specific directory:
 ```bash
 dotnet MergeSolutions.dll --input /path/to/solutions --output mergedSolution.sln
 ```
-This command merges all solution files found in `/path/to/solutions` directory into `mergedSolution.sln`.
+This command merges all solution files found in `/path/to/solutions` directory into `mergedSolution.sln`. 
