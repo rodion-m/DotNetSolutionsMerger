@@ -9,7 +9,7 @@ class Program
 
         var inputOption = new Option<string[]>(
             aliases: new[] { "--input", "-i" },
-            description: "Input solution file paths or directory containing solution files.")
+            description: "Input solution file paths or directory containing solution files")
         {
             AllowMultipleArgumentsPerToken = true,
             IsRequired = true
