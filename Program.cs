@@ -17,7 +17,7 @@ class Program
 
         var outputOption = new Option<string>(
             aliases: new[] { "--output", "-o" },
-            description: "Output path for the merged solution file.")
+            description: "Output path for the merged solution file")
         {
             IsRequired = true
         };
